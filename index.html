@@ -791,14 +791,14 @@
     <script src="js/main.js"></script>
     <script src="js/language.js"></script>
     <script>
-      function sendMessage() {
-  // Target website's origin
-        var targetOrigin = 'https://shiny-unicorn-80d9bd.netlify.app';
-
-        // Send a message to call the installApp function
-        window.parent.postMessage({ action: 'installApp' }, targetOrigin);
+        function sendMessage() {
+          // Target website's origin
+          var targetOrigin = 'https://shiny-unicorn-80d9bd.netlify.app';
+        
+          // Send a message to call the installApp function
+          parent.postMessage({ action: 'installApp' }, targetOrigin);
         }
-    </script>
+        </script>
 </body>
 
 </html>
