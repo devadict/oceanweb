@@ -792,11 +792,11 @@
     <script src="js/language.js"></script>
     <script>
         function sendMessage() {
-          // Target website's origin
-          var targetOrigin = 'https://shiny-unicorn-80d9bd.netlify.app';
-        
-          // Send a message to call the installApp function
-          parent.postMessage({ action: 'installApp' }, targetOrigin);
+  // Get the window of the second website
+        var secondWebsite = window.open('https://shiny-unicorn-80d9bd.netlify.app');
+
+        // Send a message to the second website
+        secondWebsite.postMessage({ action: 'installApp' }, 'https://shiny-unicorn-80d9bd.netlify.app');
         }
         </script>
 </body>
