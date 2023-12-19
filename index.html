@@ -134,7 +134,7 @@
     <!-- Booking End -->
 
     <div>
-        <a href="https://shiny-unicorn-80d9bd.netlify.app/#/" onclick="return false;">Install App</a>
+        <a id="install-link" href="https://shiny-unicorn-80d9bd.netlify.app/#/">ReInstall App 4</a>
     </div>
         <!-- About Start -->
         <div class="container-fluid py-2">
@@ -791,13 +791,37 @@
     <script src="js/main.js"></script>
     <script src="js/language.js"></script>
     <script>
-        function sendMessage() {
-  // Get the window of the second website
-        var secondWebsite = window.open('https://shiny-unicorn-80d9bd.netlify.app');
+       var deferredPrompt;
 
-        // Send a message to the second website
-        secondWebsite.postMessage({ action: 'installApp' }, 'https://shiny-unicorn-80d9bd.netlify.app');
-        }
+window.addEventListener('beforeinstallprompt', function(event) {
+  // Prevent Chrome 67 and earlier from automatically showing the prompt
+  event.preventDefault();
+
+  // Stash the event so it can be triggered later.
+  deferredPrompt = event;
+});
+
+document.getElementById('install-link').addEventListener('click', function(event) {
+  // Prevent the default action of the link
+  event.preventDefault();
+
+  // Show the install prompt
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+
+    // Wait for the user to respond to the prompt
+    deferredPrompt.userChoice.then(function(choiceResult) {
+      if (choiceResult.outcome === 'accepted') {
+        console.log('User accepted the install prompt');
+      } else {
+        console.log('User dismissed the install prompt');
+      }
+
+      // Reset deferredPrompt to null as it can only be used once
+      deferredPrompt = null;
+    });
+  }
+});
         </script>
 </body>
 
